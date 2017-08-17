@@ -1,0 +1,9 @@
+
+
+       TITLE
+
+       -Play
+       -Highscores
+       -How to play
+       -About authors
+       -Quit

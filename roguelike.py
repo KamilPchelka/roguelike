@@ -3,13 +3,14 @@ import os
 
 def create_board(width, height):
     board = []
-    for i in range(height):
+
+    for i in range(width):
         board.append([])
-        for j in range(width):
+
+        for j in range(height):
             # if it's a border:
-            if (i == 0 or i == height-1) or (j == 0 or j == width-1):
+            if (j == 0 or j == height-1) or (i == 0 or i == width-1):
                 board[i].append("#")
-            # if it's NOT a border:
             else:
                 board[i].append(" ")
             
@@ -17,9 +18,12 @@ def create_board(width, height):
 
 
 def print_board(board):
-    for row in board:
-        for elem in row:
-            print(elem, end="")
+    col = len(board)
+    row = len(board[0])
+    
+    for i in range(row):
+        for j in range(col):
+            print(board[j][i], end="")
         print()
 
 
@@ -38,56 +42,49 @@ def getch():
     return ch
 
 
-def get_yx(board):
-    for row in board:
+def get_xy(board):
+    for column in board:
         try:
-            return board.index(row), row.index("@")
+            return board.index(column), column.index("@")
         except:
             continue
 
 
 def main():
-    width = 40
-    height = 50
-
+    width = 20
+    height = 10
     board = create_board(width, height)
-
-    # test movement
-    board[4][9] = "@"
-    print_board(board)
+    board[9][4] = "@"
 
     while True:
         os.system("clear")
         print_board(board)
+
         key_pressed = getch()
-        if key_pressed == "w":
-            y = get_yx(board)[0]
-            x = get_yx(board)[1]
-            if(board[y-1][x] != "#"):
-                board[y-1][x] = "@"
-                board[y][x] = " "
-        elif key_pressed == "a":
-            y = get_yx(board)[0]
-            x = get_yx(board)[1]
-            if(board[y][x-1] != "#"):
-                board[y][x-1] = "@"
-                board[y][x] = " "
-        elif key_pressed == "s":
-            y = get_yx(board)[0]
-            x = get_yx(board)[1]
-            if(board[y+1][x] != "#"):
-                board[y+1][x] = "@"
-                board[y][x] = " "
-        elif key_pressed == "d":
-            y = get_yx(board)[0]
-            x = get_yx(board)[1]
-            if(board[y][x+1] != "#"):
-                board[y][x+1] = "@"
-                board[y][x] = " "
+
+        # hero coordinates
+        x = get_xy(board)[0]
+        y = get_xy(board)[1]
+
+        # make the move if there is no collision
+        if key_pressed == "w" and (board[x][y - 1] != "#"):
+                board[x][y - 1] = "@"
+                board[x][y] = " "
+
+        elif key_pressed == "a" and (board[x - 1][y] != "#"):
+                board[x - 1][y] = "@"
+                board[x][y] = " "
+
+        elif key_pressed == "s" and (board[x][y + 1] != "#"):
+                board[x][y + 1] = "@"
+                board[x][y] = " "
+
+        elif key_pressed == "d" and (board[x + 1][y] != "#"):
+                board[x + 1][y] = "@"
+                board[x][y] = " "
+
         elif key_pressed == "q":
             break
-
-
 
 
 main()
