@@ -47,8 +47,8 @@ def get_yx(board):
 
 
 def main():
-    width = 20
-    height = 10
+    width = 40
+    height = 50
 
     board = create_board(width, height)
 
@@ -63,25 +63,30 @@ def main():
         if key_pressed == "w":
             y = get_yx(board)[0]
             x = get_yx(board)[1]
-            board[y-1][x] = "@"
-            board[y][x] = " "
+            if(board[y-1][x] != "#"):
+                board[y-1][x] = "@"
+                board[y][x] = " "
         elif key_pressed == "a":
             y = get_yx(board)[0]
             x = get_yx(board)[1]
-            board[y][x-1] = "@"
-            board[y][x] = " "
+            if(board[y][x-1] != "#"):
+                board[y][x-1] = "@"
+                board[y][x] = " "
         elif key_pressed == "s":
             y = get_yx(board)[0]
             x = get_yx(board)[1]
-            board[y+1][x] = "@"
-            board[y][x] = " "
+            if(board[y+1][x] != "#"):
+                board[y+1][x] = "@"
+                board[y][x] = " "
         elif key_pressed == "d":
             y = get_yx(board)[0]
             x = get_yx(board)[1]
-            board[y][x+1] = "@"
-            board[y][x] = " "
+            if(board[y][x+1] != "#"):
+                board[y][x+1] = "@"
+                board[y][x] = " "
         elif key_pressed == "q":
             break
+
 
 
 
