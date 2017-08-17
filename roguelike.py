@@ -18,6 +18,19 @@ def print_board(board):
         for elem in row:
             print(elem, end="")
         print()
+def getch():
+    """Function get the type of character pressed
+        @:return: None
+    """
+    import sys, tty, termios
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
 
 
 def main():
