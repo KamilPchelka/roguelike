@@ -1,4 +1,5 @@
 import os
+import time
 
 
 def create_board(width, height):
@@ -26,6 +27,38 @@ def print_board(board):
             print(board[j][i], end="")
         print()
 
+
+def animate_attack(board, direction):
+    hero_x = get_xy(board)[0]
+    hero_y = get_xy(board)[1]
+
+    if direction == 'up':
+        board[hero_x - 1][hero_y - 1] = '\\'
+        os.system("clear")
+        print_board(board)
+        time.sleep(0.1)
+        board[hero_x - 1][hero_y - 1] = ' '
+
+        board[hero_x][hero_y - 1] = '|'
+        os.system("clear")
+        print_board(board)
+        time.sleep(0.1)
+        board[hero_x][hero_y - 1] = ' '
+
+        board[hero_x + 1][hero_y - 1] = '/'
+        os.system("clear")
+        print_board(board)
+        time.sleep(0.1)
+        board[hero_x + 1][hero_y - 1] = ' '
+
+    elif direction == 'left':
+        pass
+    elif direction == 'down':
+        pass
+    elif direction == 'right':
+        pass
+
+
 def launch_main_game():
     width = 20
     height = 10
@@ -41,23 +74,31 @@ def launch_main_game():
         # hero coordinates
         x = get_xy(board)[0]
         y = get_xy(board)[1]
+        direction = 'up'
 
         # make the move if there is no collision
         if key_pressed == "w" and (board[x][y - 1] != "#"):
                 board[x][y - 1] = "@"
                 board[x][y] = " "
+                direction = 'up'
 
         elif key_pressed == "a" and (board[x - 1][y] != "#"):
                 board[x - 1][y] = "@"
                 board[x][y] = " "
+                direction = 'left'
 
         elif key_pressed == "s" and (board[x][y + 1] != "#"):
                 board[x][y + 1] = "@"
                 board[x][y] = " "
+                direction = 'down'
 
         elif key_pressed == "d" and (board[x + 1][y] != "#"):
                 board[x + 1][y] = "@"
                 board[x][y] = " "
+                direction = 'right'
+
+        elif key_pressed == "k":
+                animate_attack(board, direction)
 
         elif key_pressed == "q":
             main_menu_handler()
