@@ -92,7 +92,6 @@ def main_menu_handler():
         os.system('clear')
         draw_main_menu(selected, lines)
         input = getch()
-        print(input)
         if(input == "A"):
             if(selected == 1):
                 selected = 5
@@ -105,7 +104,7 @@ def main_menu_handler():
                 selected += 1
         elif (input == "q"):
             exit()
-        elif (input == "C" and selected == 1):
+        elif (input == "C" and selected == 1 or selected == 5):
             selected_item_handler(selected)
             break
 
@@ -134,7 +133,8 @@ def selected_item_handler(selected):
     """
     if (selected == 1):
         launch_main_game()
-
+    if (selected == 5):
+        exit()
 
 def main():
     main_menu_handler()
