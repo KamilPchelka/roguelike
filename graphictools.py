@@ -145,6 +145,12 @@ def add_to_graphic(background, newgraphic, x0, y0):
     return background
 
 
+def add_single_tile_to_graphic(background, single_tile, x, y):
+    """ Insert newgraphic into background starting from given x, y, coordinates. """
+    background[x][y] = single_tile
+    return background
+
+
 def main():
     """ User loads graphic, colorize it with available tiles, and saves it to a file. """
     

@@ -20,3 +20,4 @@ class Tiles:
     hudStar = Tile('hudStar', '*', '38;2;255;255;255;', '48;2;0;0;0m')
 
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
+
