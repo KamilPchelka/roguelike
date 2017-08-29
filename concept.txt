@@ -1,0 +1,15 @@
+create all maps
+
+movement, attack, npc dialogues
+
+monsters, exp, levels -> combat system
+
+inventory
+
+items wooden sword, steel sword, gold, potions, armor?
+
+puzzles: castle, cavern
+
+boss (5x5 sprite) hot warm cold
+
+menu, higshcore, about, how to play screens
