@@ -25,7 +25,7 @@ def main():
     hero_y = 10
 
     while True:
-        hero = tiletools.Tile('player', '@', '38;2;255;255;255;', display[hero_x][hero_y].background)
+        hero = tiletools.Tile('player', '@', '38;2;255;255;255;', display[hero_x][hero_y].background, True)
         display = graphictools.add_single_tile_to_graphic(display, hero, hero_x, hero_y)
         graphictools.print_graphic(display)
         key_pressed = getch()
@@ -33,21 +33,21 @@ def main():
         direction = 'up'
 
         # make the move if there is no collision
-        if key_pressed == "w":
+        if key_pressed == "w" and display[hero_x][hero_y-1].walkable:
                 display[hero_x][hero_y] = map1[hero_x - 1][hero_y - 1]
                 hero_y -= 1
                 direction = 'up'
-        elif key_pressed == "a":
+        elif key_pressed == "a" and display[hero_x-1][hero_y].walkable:
                 display[hero_x][hero_y] = map1[hero_x - 1][hero_y - 1]
                 hero_x -= 1
                 direction = 'left'
 
-        elif key_pressed == "s":
+        elif key_pressed == "s" and display[hero_x][hero_y+1].walkable:
                 display[hero_x][hero_y] = map1[hero_x - 1][hero_y - 1]
                 hero_y += 1
                 direction = 'down'
 
-        elif key_pressed == "d":
+        elif key_pressed == "d" and display[hero_x+1][hero_y].walkable:
                 display[hero_x][hero_y] = map1[hero_x - 1][hero_y - 1]
                 hero_x += 1
                 direction = 'right'
