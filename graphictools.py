@@ -144,27 +144,20 @@ def add_to_graphic(background, newgraphic, x0, y0):
             background[x + x0][y + y0] = newgraphic[x][y]
     return background
 
-def get_dialogue_graphic(text_list = ['testtest', 'testtes2']):
-    two_dimension_list = []
+
+def get_dialogue_graphic(text_list):
+    dialoguebox = import_graphic_from_file('graphics/dialoguebox.gfx', 32, 11)
+
+
     for line in text_list:
-        char_list = []
-        for char in line:
-            char_list.append('\x1b[' + '38;2;255;255;255;'+ '48;2;0;0;0m'+ char + '\x1b[0m')
-
-        two_dimension_list.append(char_list)
-
-    return two_dimension_list
-
-def add_dialogue_to_display(display, dialogues):
-    y0 = 13
-    for line in dialogues:
-        x0 = 50
-        for char in line:
-            display[x0][y0] = char
-            x0 += 1
-        y0 +=1
-
-
+        
+        for character in line:
+            dialoguebox[x][y].character = character
+            dialoguebox[x][y].foreground = '38;2;255;255;255;'
+            dialoguebox[x][y].string_update()
+            x += 1
+        y += 1 
+    return dialoguebox
 
 
 def add_single_tile_to_graphic(background, single_tile, x, y):
@@ -200,4 +193,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print_graphic(get_dialogue_graphic(['Pierwsza linijka.', 'Druga linijka.']))
     main()

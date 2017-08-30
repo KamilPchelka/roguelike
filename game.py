@@ -45,22 +45,30 @@ def game_loop(interface, current_map, display, hero):
 
 def handle_user_input(display, current_map, key_pressed, hero):
     """ Make the move if there is no collision. """
-    if key_pressed == "w" and display[hero.x][hero.y-1].walkable:
+    if key_pressed == "w" and display[hero.x][hero.y - 1].walkable:
             display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
+            hero.background = display[hero.x][hero.y - 1].background
+            hero.update_string()
             hero.y -= 1
             hero.direction = 'up'
-    elif key_pressed == "a" and display[hero.x-1][hero.y].walkable:
+    elif key_pressed == "a" and display[hero.x - 1][hero.y].walkable:
             display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
+            hero.background = display[hero.x - 1][hero.y].background
+            hero.update_string()
             hero.x -= 1
             hero.direction = 'left'
 
-    elif key_pressed == "s" and display[hero.x][hero.y+1].walkable:
+    elif key_pressed == "s" and display[hero.x][hero.y + 1].walkable:
             display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
+            hero.background = display[hero.x][hero.y + 1].background
+            hero.update_string()
             hero.y += 1
             hero.direction = 'down'
 
-    elif key_pressed == "d" and display[hero.x+1][hero.y].walkable:
+    elif key_pressed == "d" and display[hero.x + 1][hero.y].walkable:
             display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
+            hero.background = display[hero.x + 1][hero.y].background
+            hero.update_string()
             hero.x += 1
             hero.direction = 'right'
 

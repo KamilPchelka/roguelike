@@ -37,3 +37,6 @@ class Hero(Tile):
         self.x = x
         self.y = y
         self.direction = direction
+
+    def update_string(self):
+        self.string = '\x1b[' + self.foreground + self.background + self.character + '\x1b[0m'
