@@ -28,4 +28,9 @@ class Enemy(Tile):
         self.hp = hp
 
 
-
+class Hero(Tile):
+    def __init__(self, hp, hero_x, hero_y):
+        super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
+        self.hp = hp
+        self.hero_x = hero_x
+        self.hero_y = hero_y
