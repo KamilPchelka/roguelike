@@ -17,7 +17,7 @@ def getch():
     return ch
 
 
-def main():
+def trigger_game():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
     map1 = graphictools.import_graphic_from_file('graphics/map1.gfx', 47, 21)
     display = graphictools.add_to_graphic(interface, map1, 1, 1)
@@ -55,6 +55,47 @@ def main():
         elif key_pressed == "q":
             exit()
 
-            
+def trigger_menu():
+    option = 1
+    lines_list = []
+    with open('graphics/menu.txt', 'r') as f:
+        lines_list = f.readlines()
+    while True:
+        for line in list(lines_list):
+            if line.__contains__('%'):
+                index = line.index('%')
+                if(int(line[index+1]) == option):
+                    line = line.replace('%' + str(option), " [6;30;42m")
+                else:
+                    line = line.replace('%' + line[index+1], ' ')
+            print(line, end='')
+        input = getch()
+        if(input == "A"):
+            if(option == 1):
+                option = 5
+            else:
+                option -= 1
+        elif(input == "B"):
+            if(option == 5):
+                option = 1
+            else:
+                option += 1
+        elif(input == "q"):
+            exit()
+        elif (input == "C" and option in [1,5]):
+            selected_item_handler(option)
+            break
+def selected_item_handler(option):
+    """
+    Function triggers stage which depends on option variable.
+    :param option: 
+    :return: None
+    """
+    if (option == 1):
+        trigger_game()
+    if (option == 5):
+        exit()
+        
+
 if __name__ == '__main__':
-        main()
+        trigger_menu()
