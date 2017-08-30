@@ -1,6 +1,7 @@
 import tiletools
 import graphictools
 import maptools
+import time
 
 
 def getch():
@@ -22,7 +23,7 @@ def trigger_game():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
     hero = tiletools.Hero(100, 10, 10, 'up')
     """  map initialization """
-    map1 = maptools.Map('map1', 'graphics/map1.gfx', hero)
+    map1 = maptools.Map('map1', 'graphics/map2.gfx', hero)
     gold1 = tiletools.Gold(4, 4, 10, hero)
     gold2 = tiletools.Gold(3, 3, 10, hero)
     gold3 = tiletools.Gold(5, 3, 10, hero)
@@ -45,7 +46,7 @@ def game_loop(interface, current_map, display, hero, gold_coins):
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
 
         if hero.gold <= 100:
-            message = ['Collect 100 gold.', 'Your gold: ' + str(hero.gold)]
+            message = ['Collect 100 gold to proceed.', 'Your gold: ' + str(hero.gold)]
             graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
 
         for coin in gold_coins:
@@ -96,9 +97,101 @@ def handle_user_input(display, current_map, key_pressed, hero):
             hero.x += 1
             hero.direction = 'right'
 
+    elif key_pressed == 'k':
+        animate_attack(display, hero)
+
     elif key_pressed == "q":
         exit()
 
+
+def animate_attack(display, hero):
+    if hero.direction == 'up':
+        tile_copy = display[hero.x - 1][hero.y - 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y-1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y-1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x][hero.y - 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x, hero.y-1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x, hero.y-1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x + 1][hero.y - 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y-1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y-1)
+        time.sleep(0.1)
+
+    if hero.direction == 'left':
+        tile_copy = display[hero.x - 1][hero.y + 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y+1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y+1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x - 1][hero.y]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '-' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x - 1][hero.y - 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y-1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y-1)
+        time.sleep(0.1)
+
+    if hero.direction == 'down':
+        tile_copy = display[hero.x + 1][hero.y + 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y+1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y+1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x][hero.y + 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x, hero.y+1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x, hero.y+1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x - 1][hero.y + 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y+1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y+1)
+        time.sleep(0.1)
+
+    if hero.direction == 'right':
+        tile_copy = display[hero.x + 1][hero.y - 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y-1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y-1)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x + 1][hero.y]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '-' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y)
+        time.sleep(0.1)
+
+        tile_copy = display[hero.x + 1][hero.y + 1]
+        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
+        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y+1)
+        graphictools.print_graphic(display)
+        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y+1)
+        time.sleep(0.1)
 
 
 def trigger_menu():

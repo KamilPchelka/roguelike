@@ -7,6 +7,9 @@ class Tile:
         self.walkable = walkable
         self.string = '\x1b[' + foreground + background + character + '\x1b[0m'
 
+    def update_string(self):
+        self.string = '\x1b[' + self.foreground + self.background + self.character + '\x1b[0m'
+
 
 class Tiles:
     grass = Tile('grass', '.', '38;2;109;255;188;', '48;2;40;170;50m', True)
@@ -37,9 +40,6 @@ class Hero(Tile):
         self.y = y
         self.direction = direction
         self.gold = gold
-
-    def update_string(self):
-        self.string = '\x1b[' + self.foreground + self.background + self.character + '\x1b[0m'
 
 
 class Gold(Tile):
