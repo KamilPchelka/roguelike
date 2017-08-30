@@ -24,21 +24,33 @@ def trigger_game():
     """  map initialization """
     map1 = maptools.Map('map1', 'graphics/map1.gfx', hero)
     gold1 = tiletools.Gold(4, 4, 10, hero)
+    gold2 = tiletools.Gold(3, 3, 10, hero)
+    gold3 = tiletools.Gold(5, 3, 10, hero)
+    gold4 = tiletools.Gold(6, 3, 10, hero)
+    gold5 = tiletools.Gold(7, 3, 10, hero)
+    gold6 = tiletools.Gold(8, 3, 20, hero)
+    gold7 = tiletools.Gold(9, 3, 10, hero)
+    gold8 = tiletools.Gold(11, 3, 20, hero)
+    gold_coins = [gold1, gold2, gold3, gold4, gold5, gold6, gold7, gold8]
     current_map = map1
     """ ------------------- """
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
-    game_loop(interface, current_map, display, hero, gold1)
+    game_loop(interface, current_map, display, hero, gold_coins)
 
 
-def game_loop(interface, current_map, display, hero, gold1):
+def game_loop(interface, current_map, display, hero, gold_coins):
     while True:
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
-        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
 
-        if current_map.name == "map1" and gold1.exist:
-            display[4][4] = gold1
+        if hero.gold <= 100:
+            message = ['Collect 100 gold.', 'Your gold: ' + str(hero.gold)]
+            graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
+
+        for coin in gold_coins:
+            if current_map.name == "map1" and coin.exist:
+                display[coin.x][coin.y] = coin
 
         graphictools.print_graphic(display)
 
@@ -46,7 +58,8 @@ def game_loop(interface, current_map, display, hero, gold1):
 
         handle_user_input(display, current_map, key_pressed, hero)
         
-        gold1.collision_check()
+        for coin in gold_coins:
+            coin.collision_check()
 
 
         if hero.y == 1 and current_map.name == "map1":
