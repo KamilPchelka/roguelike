@@ -23,7 +23,6 @@ class Tiles:
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
 
-
 class Enemy(Tile):
     def __init__(self, hp):
         super().__init__('grass', '?', '38;2;109;255;188;', '48;2;40;170;50m', True)
@@ -31,12 +30,28 @@ class Enemy(Tile):
 
 
 class Hero(Tile):
-    def __init__(self, hp, x, y, direction):
+    def __init__(self, hp, x, y, direction, gold=0):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
         self.x = x
         self.y = y
         self.direction = direction
+        self.gold = gold
 
     def update_string(self):
         self.string = '\x1b[' + self.foreground + self.background + self.character + '\x1b[0m'
+
+
+class Gold(Tile):
+    def __init__(self, x, y, value, hero, exist=True):
+        super().__init__('gold', '$', '38;2;0;0;0;', '48;2;255;255;0m', True)
+        self.x = x
+        self.y = y
+        self.value = value
+        self.exist = exist
+        self.hero = hero
+
+    def collision_check(self):
+        if self.x == self.hero.x and self.y == self.hero.y:
+            self.hero.gold += self.value
+            self.exist = False

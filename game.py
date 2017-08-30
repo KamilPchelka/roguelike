@@ -20,23 +20,33 @@ def getch():
 
 def trigger_game():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
-    current_map = maptools.Maps.map1
     hero = tiletools.Hero(100, 10, 10, 'up')
+    """  map initialization """
+    map1 = maptools.Map('map1', 'graphics/map1.gfx', hero)
+    gold1 = tiletools.Gold(4, 4, 10, hero)
+    current_map = map1
+    """ ------------------- """
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
-    game_loop(interface, current_map, display, hero)
+    game_loop(interface, current_map, display, hero, gold1)
 
 
-def game_loop(interface, current_map, display, hero):
+def game_loop(interface, current_map, display, hero, gold1):
     while True:
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
         graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
+
+        if current_map.name == "map1" and gold1.exist:
+            gold1.collision_check()
+            display[4][4] = gold1
+
         graphictools.print_graphic(display)
-    
+
         key_pressed = getch()
 
         handle_user_input(display, current_map, key_pressed, hero)
+
 
         if hero.y == 1 and current_map.name == "map1":
             current_map = maptools.Maps.map2

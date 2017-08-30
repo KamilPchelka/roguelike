@@ -1,13 +1,15 @@
 import graphictools
+import tiletools
+
+
 class Map():
-    def __init__(self, name, map_graphic):
+    def __init__(self, name, graphic_path, hero):
         self.name = name
-        self.map_graphic = map_graphic
+        self.map_graphic = graphictools.import_graphic_from_file(graphic_path, 47, 21)
+        self.hero = hero
+    
 
-
-class Maps():
-    def load_map_ghraphic(path):
-        return graphictools.import_graphic_from_file(path, 47, 21)
-
-    map1 = Map('map1', load_map_ghraphic('graphics/map1.gfx'))
-    map2 = Map('map2', load_map_ghraphic('graphics/map2.gfx'))
+''' class Maps():
+    map1 = Map('map1', load_map_graphic('graphics/map1.gfx'))
+    map2 = Map('map2', load_map_graphic('graphics/map2.gfx'))
+ '''
