@@ -20,45 +20,50 @@ def getch():
 def trigger_game():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
     current_map = graphictools.import_graphic_from_file('graphics/map1.gfx', 47, 21)
+    hero = tiletools.Hero(100, 10, 10, 'up')
     display = graphictools.add_to_graphic(interface, current_map, 1, 1)
-    hero_x = 10
-    hero_y = 10
-    
-    game_loop(interface, current_map, display, hero_x, hero_y)
+
+    game_loop(interface, current_map, display, hero)
 
 
-def game_loop(interface, current_map, display, hero_x, hero_y):
+def game_loop(interface, current_map, display, hero):
     while True:
-        hero = tiletools.Tile('player', '@', '38;2;255;255;255;', display[hero_x][hero_y].background, True)
-        display = graphictools.add_single_tile_to_graphic(display, hero, hero_x, hero_y)
+        display = graphictools.add_to_graphic(interface, current_map, 1, 1)
+        display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
         graphictools.print_graphic(display)
     
         key_pressed = getch()
 
-        direction = 'up'
+        handle_user_input(display, current_map, key_pressed, hero)
 
-        # make the move if there is no collision
-        if key_pressed == "w" and display[hero_x][hero_y-1].walkable:
-                display[hero_x][hero_y] = current_map[hero_x - 1][hero_y - 1]
-                hero_y -= 1
-                direction = 'up'
-        elif key_pressed == "a" and display[hero_x-1][hero_y].walkable:
-                display[hero_x][hero_y] = current_map[hero_x - 1][hero_y - 1]
-                hero_x -= 1
-                direction = 'left'
+        if hero.y == 1:
+            current_map = graphictools.import_graphic_from_file('graphics/map2.gfx', 47, 21)
+            hero.y = 21
 
-        elif key_pressed == "s" and display[hero_x][hero_y+1].walkable:
-                display[hero_x][hero_y] = current_map[hero_x - 1][hero_y - 1]
-                hero_y += 1
-                direction = 'down'
 
-        elif key_pressed == "d" and display[hero_x+1][hero_y].walkable:
-                display[hero_x][hero_y] = current_map[hero_x - 1][hero_y - 1]
-                hero_x += 1
-                direction = 'right'
+def handle_user_input(display, current_map, key_pressed, hero):
+    """ Make the move if there is no collision. """
+    if key_pressed == "w" and display[hero.x][hero.y-1].walkable:
+            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            hero.y -= 1
+            hero.direction = 'up'
+    elif key_pressed == "a" and display[hero.x-1][hero.y].walkable:
+            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            hero.x -= 1
+            hero.direction = 'left'
 
-        elif key_pressed == "q":
-            exit()
+    elif key_pressed == "s" and display[hero.x][hero.y+1].walkable:
+            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            hero.y += 1
+            hero.direction = 'down'
+
+    elif key_pressed == "d" and display[hero.x+1][hero.y].walkable:
+            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            hero.x += 1
+            hero.direction = 'right'
+
+    elif key_pressed == "q":
+        exit()
 
 
 def trigger_menu():
