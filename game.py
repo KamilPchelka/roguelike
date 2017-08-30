@@ -17,17 +17,23 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
+def map_2_handler(hero):
+    interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
+    current_map = maptools.Maps.map2
+    hero = tiletools.Hero(100, 50, 4, 'up')
+    display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
+    game_loop_2(interface, current_map, display, hero)
 
-def trigger_game():
+def map_1_handler():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
     current_map = maptools.Maps.map1
     hero = tiletools.Hero(100, 10, 10, 'up')
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
-    game_loop(interface, current_map, display, hero)
+    game_loop_1(interface, current_map, display, hero)
 
 
-def game_loop(interface, current_map, display, hero):
+def game_loop_1(interface, current_map, display, hero):
     while True:
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
         graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
@@ -41,6 +47,19 @@ def game_loop(interface, current_map, display, hero):
         if hero.y == 1 and current_map.name == "map1":
             current_map = maptools.Maps.map2
             hero.y = 21
+
+
+def game_loop_2(interface, current_map, display, hero):
+    while True:
+        display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
+        display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
+        graphictools.print_graphic(display)
+
+        key_pressed = getch()
+
+        handle_user_input(display, current_map, key_pressed, hero)
+
 
 
 def handle_user_input(display, current_map, key_pressed, hero):
@@ -115,7 +134,7 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        trigger_game()
+        map_1_handler()
     if (option == 5):
         exit()
         

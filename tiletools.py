@@ -18,7 +18,8 @@ class Tiles:
     stoneWall = Tile('stoneWall', '#', '38;2;137;150;109;', '48;2;64;70;66m', False)
     stoneFloor = Tile('stoneFloor', '.', '38;2;200;200;200;', '48;2;120;120;120m', True)
     hudHash = Tile('hudHash', '#', '38;2;255;255;255;', '48;2;0;0;0m', False)
-    hudStar = Tile('hudStar', '*', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudStar = Tile('hudStar', '&', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    item = Tile('item', '?', '38;2;255;0;127;', '48;2;40;170;50m', True)
 
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
@@ -31,6 +32,7 @@ class Enemy(Tile):
 
 
 class Hero(Tile):
+    inventory = {}
     def __init__(self, hp, x, y, direction):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
