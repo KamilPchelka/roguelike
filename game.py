@@ -30,6 +30,7 @@ def trigger_game():
 def game_loop(interface, current_map, display, hero):
     while True:
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
         graphictools.print_graphic(display)
     
