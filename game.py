@@ -1,5 +1,6 @@
 import tiletools
 import graphictools
+import maptools
 
 
 def getch():
@@ -19,16 +20,16 @@ def getch():
 
 def trigger_game():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
-    current_map = graphictools.import_graphic_from_file('graphics/map1.gfx', 47, 21)
+    current_map = maptools.Maps.map1
     hero = tiletools.Hero(100, 10, 10, 'up')
-    display = graphictools.add_to_graphic(interface, current_map, 1, 1)
+    display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
     game_loop(interface, current_map, display, hero)
 
 
 def game_loop(interface, current_map, display, hero):
     while True:
-        display = graphictools.add_to_graphic(interface, current_map, 1, 1)
+        display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
         graphictools.print_graphic(display)
     
@@ -36,29 +37,29 @@ def game_loop(interface, current_map, display, hero):
 
         handle_user_input(display, current_map, key_pressed, hero)
 
-        if hero.y == 1:
-            current_map = graphictools.import_graphic_from_file('graphics/map2.gfx', 47, 21)
+        if hero.y == 1 and current_map.name == "map1":
+            current_map = maptools.Maps.map2
             hero.y = 21
 
 
 def handle_user_input(display, current_map, key_pressed, hero):
     """ Make the move if there is no collision. """
     if key_pressed == "w" and display[hero.x][hero.y-1].walkable:
-            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
             hero.y -= 1
             hero.direction = 'up'
     elif key_pressed == "a" and display[hero.x-1][hero.y].walkable:
-            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
             hero.x -= 1
             hero.direction = 'left'
 
     elif key_pressed == "s" and display[hero.x][hero.y+1].walkable:
-            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
             hero.y += 1
             hero.direction = 'down'
 
     elif key_pressed == "d" and display[hero.x+1][hero.y].walkable:
-            display[hero.x][hero.y] = current_map[hero.x - 1][hero.y - 1]
+            display[hero.x][hero.y] = current_map.map_graphic[hero.x - 1][hero.y - 1]
             hero.x += 1
             hero.direction = 'right'
 

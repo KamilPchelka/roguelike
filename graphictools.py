@@ -144,6 +144,11 @@ def add_to_graphic(background, newgraphic, x0, y0):
             background[x + x0][y + y0] = newgraphic[x][y]
     return background
 
+def get_dialogue_grapgic(text_list):
+    ...
+
+
+
 
 def add_single_tile_to_graphic(background, single_tile, x, y):
     """ Insert newgraphic into background starting from given x, y, coordinates. """

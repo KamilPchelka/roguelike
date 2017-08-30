@@ -23,6 +23,7 @@ class Tiles:
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
 
+
 class Enemy(Tile):
     def __init__(self, hp):
         super().__init__('grass', '?', '38;2;109;255;188;', '48;2;40;170;50m', True)
