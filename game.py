@@ -38,7 +38,6 @@ def game_loop(interface, current_map, display, hero, gold1):
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
 
         if current_map.name == "map1" and gold1.exist:
-            gold1.collision_check()
             display[4][4] = gold1
 
         graphictools.print_graphic(display)
@@ -46,6 +45,8 @@ def game_loop(interface, current_map, display, hero, gold1):
         key_pressed = getch()
 
         handle_user_input(display, current_map, key_pressed, hero)
+        
+        gold1.collision_check()
 
 
         if hero.y == 1 and current_map.name == "map1":
@@ -84,6 +85,7 @@ def handle_user_input(display, current_map, key_pressed, hero):
 
     elif key_pressed == "q":
         exit()
+
 
 
 def trigger_menu():
