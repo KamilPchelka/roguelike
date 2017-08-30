@@ -70,21 +70,29 @@ def trigger_menu():
                     line = line.replace('%' + line[index+1], ' ')
             print(line, end='')
         input = getch()
-        if(input == "A"):
-            if(option == 1):
-                option = 5
-            else:
-                option -= 1
-        elif(input == "B"):
-            if(option == 5):
-                option = 1
-            else:
-                option += 1
-        elif(input == "q"):
-            exit()
-        elif (input == "C" and option in [1,5]):
-            selected_item_handler(option)
-            break
+        output = handle_main_menu_user_input(input, option)
+        if output in [1,2,3,4,5]:
+            option = output
+
+def handle_main_menu_user_input(input, option):
+    if (input == "A"):
+        if (option == 1):
+            return 5
+        else:
+            option -= 1
+            return option
+    elif (input == "B"):
+        if (option == 5):
+            return 1
+        else:
+            option += 1
+            return  option
+    elif (input == "q"):
+        exit()
+    elif (input == "C" and option in [1, 5]):
+        selected_item_handler(option)
+    return None
+
 def selected_item_handler(option):
     """
     Function triggers stage which depends on option variable.
