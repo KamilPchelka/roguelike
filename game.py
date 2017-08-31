@@ -388,13 +388,13 @@ def trigger_menu():
 
 
 def handle_main_menu_user_input(input, option):
-    if (input == "A"):
+    if (input in ["A", 'w', 'W']):
         if (option == 1):
             return 5
         else:
             option -= 1
             return option
-    elif (input == "B"):
+    elif (input in ['B', 'S', 's']):
         if (option == 5):
             return 1
         else:
@@ -402,7 +402,7 @@ def handle_main_menu_user_input(input, option):
             return option
     elif (input == "q"):
         exit()
-    elif (input == "C" and option in [1, 2, 3, 4, 5]):
+    elif (input in ['C', 'D', 'd']):
         selected_item_handler(option)
     return None
 
