@@ -25,6 +25,7 @@ class Tiles:
     rabbit = Tile('rabbit', 'a', '38;2;255;255;255;', '48;2;40;170;50m', False)
     blood = Tile('blood', ' ', '38;2;255;0;0;', '48;2;255;0;0m', True)
     item = Tile('item', '?', '38;2;255;0;127;', '48;2;40;170;50m', True)
+    gate = Tile('gate', '=', '38;2;200;200;200;', '48;2;120;120;120m', False)
 
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 

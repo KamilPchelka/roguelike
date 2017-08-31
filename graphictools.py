@@ -200,5 +200,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print_graphic(get_dialogue_graphic(['Pierwsza linijka.', 'Druga linijka.']))
     main()

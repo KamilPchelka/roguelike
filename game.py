@@ -67,7 +67,7 @@ def map_1_handler():
     gold5 = tiletools.Gold(42, 7, 10, hero)
     gold6 = tiletools.Gold(35, 15, 20, hero)
     gold7 = tiletools.Gold(22, 5, 10, hero)
-    gold8 = tiletools.Gold(6, 19, 20, hero)
+    gold8 = tiletools.Gold(7, 19, 20, hero)
     gold_coins = [gold1, gold2, gold3, gold4, gold5, gold6, gold7, gold8]
     rabbit1 = tiletools.Rabbit(5, 5)
     rabbit2 = tiletools.Rabbit(10, 9)
