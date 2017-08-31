@@ -415,7 +415,7 @@ def selected_item_handler(option):
     """
     if (option == 1):
         #story_screen_handler()
-        map_2_handler()
+        map_1_handler()
     if (option == 2):
         howto_screen_handler()
     if (option == 3):
