@@ -18,6 +18,7 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
+
 def prepare_inventory_list(inventory):
     line_list = []
     item_info_length = 0
@@ -39,14 +40,16 @@ def prepare_inventory_list(inventory):
         line_list.append(line)
     return line_list
 
-def add_to_inventory(item,amount,weight):
+
+def add_to_inventory(item, amount, weight):
     if tiletools.Hero.inventory.__contains__("item"):
         item_info = tiletools.Hero.inventory[item]
         item_amount = item_info[1] + float(amount)
         item_weight = item_info[2] + float(weight)
-        tiletools.Hero.inventory[item] = [item_amount , item_weight]
+        tiletools.Hero.inventory[item] = [item_amount, item_weight]
     else:
         tiletools.Hero.inventory.__setitem__(item, [float(amount), float(weight)])
+
 
 def map_2_handler():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
@@ -54,6 +57,7 @@ def map_2_handler():
     hero = tiletools.Hero(100, 10, 10, 'up')
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
     game_loop_2(interface, current_map, display, hero)
+
 
 def map_1_handler():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
@@ -84,7 +88,6 @@ def map_1_handler():
     """ ------------------- """
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
-
     game_loop_1(interface, current_map, display, hero, gold_coins, rabbits)
 
 
@@ -106,6 +109,9 @@ def game_loop_1(interface, current_map, display, hero, gold_coins, rabbits):
             message = ['You feel bad about yourself',
                         'but Gods are pleased. They',
                         'opened the gate for you.']
+            for i in range(3):
+                display[17 + i][21] = graphictools.Tiles.grass
+
         graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
         graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
 
@@ -125,11 +131,8 @@ def game_loop_1(interface, current_map, display, hero, gold_coins, rabbits):
         for coin in gold_coins:
             coin.collision_check()
 
-
-
-        if hero.y == 1 and current_map.name == "map1":
-            current_map = maptools.Maps.map2
-            hero.y = 21
+        if hero.y == 21:
+            map_2_handler()
 
 
 def game_loop_2(interface, current_map, display, hero):
@@ -165,7 +168,6 @@ def game_loop_2(interface, current_map, display, hero):
         handle_user_input(display, current_map, key_pressed, hero)
         if(not maptools.Maps.items and hero_string_pos in ['13,18', '14,18', '15,18']):
             exit()
-
 
 
 def handle_user_input(display, current_map, key_pressed, hero):
@@ -271,7 +273,7 @@ def handle_main_menu_user_input(input, option):
             return 1
         else:
             option += 1
-            return  option
+            return option
     elif (input == "q"):
         exit()
     elif (input == "C" and option in [1, 5]):
