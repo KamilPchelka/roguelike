@@ -59,9 +59,11 @@ def map_2_handler():
     game_loop_2(interface, current_map, display, hero)
 
 
-def map_1_handler():
+def map_1_handler(player_name):
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
     hero = tiletools.Hero(100, 8, 12, 'up')
+    hero.player_name = player_name
+    print(hero.player_name)
     """  map initialization """
     map1 = maptools.Map('map1', 'graphics/map2.gfx', hero)
     gold1 = tiletools.Gold(4, 4, 10, hero)
@@ -288,7 +290,7 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        map_1_handler()
+        story_screen_handler()
     if (option == 2):
         howto_screen_handler()
     if (option == 3):
@@ -297,6 +299,15 @@ def selected_item_handler(option):
         about_screen_handler()
     if (option == 5):
         exit()
+
+
+def story_screen_handler():
+    os.system('clear')
+    with open('graphics/story.txt', 'r') as f:
+        for line in f:
+            print(line, end='')
+        input = getch()
+        character_creation_handler()
 
 
 def howto_screen_handler():
@@ -313,6 +324,15 @@ def about_screen_handler():
         for line in f:
             print(line, end='')
         input = getch()
+
+
+def character_creation_handler():
+    os.system('clear')
+    print('\n' * 6)
+    print(' ' * 32, 'Enter your name:')
+    print(' ' * 36, end='')
+    player_name = input()
+    map_1_handler(player_name)
 
 
 if __name__ == '__main__':
