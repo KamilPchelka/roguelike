@@ -145,7 +145,7 @@ def add_to_graphic(background, newgraphic, x0, y0):
     return background
 
 
-def get_dialogue_graphic(text_list=['                             ', '                             ']):
+def get_dialogue_graphic(text_list=['                             ']*9):
     two_dimension_list = []
     for line in text_list:
         char_list = []
@@ -200,5 +200,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print_graphic(get_dialogue_graphic(['Pierwsza linijka.', 'Druga linijka.']))
     main()

@@ -2,6 +2,7 @@ import tiletools
 import graphictools
 import maptools
 import time
+import random
 
 
 def getch():
@@ -17,6 +18,36 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
+
+def get_hint(answer, random_number):
+    if (answer == list(random_number)):
+        return True
+    elif (not set(answer) & set(random_number)):
+        return ['None of the numbers', 'are correct']
+    else:
+        wrong_placed = 0
+        correct_placed = 0
+        for i in range(0, 3):
+            if (answer[i] == random_number[i]):
+                correct_placed += 1
+            elif (random_number.__contains__(answer[i])):
+                wrong_placed += 1
+        if (wrong_placed > 0 and correct_placed == 0):
+            return [str("There are " + str(wrong_placed) + " wrong placed.")]
+        elif (wrong_placed == 0 and correct_placed > 0):
+            return ["There are " + str(correct_placed) + " correct placed"]
+        else:
+            return [str("There are " + str(wrong_placed) + " wrong placed"), str("and " + str(correct_placed) + " correct placed")]
+
+
+def generate_random_number():
+    numbers = ['0', '1', '2', '3', '4','5', '6', '7', '8', '9']
+    random.shuffle(numbers)
+    return ''.join(numbers[0:3])
+
+def save_to_scoreboard(player_name, time):
+    with open("scoreboard.txt", 'a') as f:
+        f.write(";".join([player_name, str(time)]) + '\n')
 
 def prepare_inventory_list(inventory):
     line_list = []
@@ -39,6 +70,45 @@ def prepare_inventory_list(inventory):
         line_list.append(line)
     return line_list
 
+def load_scoreboard():
+    with open('scoreboard.txt', 'r') as f:
+        scoreboard_dict = {}
+        lines = f.readlines()
+        for line in lines:
+            values = line.split(';')
+            name = values[0]
+            time = values[1].replace('\n','')
+            scoreboard_dict.__setitem__(float(time), name)
+        return scoreboard_dict
+
+def print_scoreboard():
+    scoreboard_dict = load_scoreboard()
+    sorted_keys = sorted(scoreboard_dict.keys(), reverse= False)
+    max_range = 10
+    if(len(sorted_keys) < 10):
+        max_range = len(sorted_keys)-1
+
+    with open("graphics/scoreboard_screen.txt", 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            i = 0
+            while(i != max_range):
+                if (line.__contains__("%" + str(i+1))):
+                    line = line.replace("%" + str(i+1) + "name", scoreboard_dict.__getitem__(sorted_keys[i]))
+                    line = line.replace("%" + str(i+1) + "time", str(int(sorted_keys[i])))
+                    line = line.replace("%" + str(i+1), str(i+1) + ". ")
+                elif (line.__contains__("%")):
+                    index = line.index('%')
+                    next_char = line[index+1]
+                    if(int(next_char) > max_range):
+                        line = "\n"
+                i += 1
+            if(not line.__contains__("0time")):
+                print(line, end='')
+    getch()
+
+
+
 def add_to_inventory(item,amount,weight):
     if tiletools.Hero.inventory.__contains__("item"):
         item_info = tiletools.Hero.inventory[item]
@@ -47,6 +117,13 @@ def add_to_inventory(item,amount,weight):
         tiletools.Hero.inventory[item] = [item_amount , item_weight]
     else:
         tiletools.Hero.inventory.__setitem__(item, [float(amount), float(weight)])
+    
+
+def map_3_handler():
+    interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
+    current_map = maptools.Map('map3', 'graphics/map3.gfx')
+    display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
+    game_loop_3(interface, current_map, display)
 
 def map_2_handler():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
@@ -145,6 +222,43 @@ def game_loop_2(interface, current_map, display, hero):
 
         handle_user_input(display, current_map, key_pressed, hero)
         if(not maptools.Maps.items and hero_string_pos in ['13,18', '14,18', '15,18']):
+            map_3_handler()
+            break
+
+def game_loop_3(interface, current_map, display):
+    info_box_message = ['You have to kill the boss by', 'winning hot worm cold fight.',
+                        'Type 3-number digit', 'without duplications.', ' ']
+    answer_dict = {'Numbers' : []}
+    random_number = generate_random_number()
+    while True:
+        print(random_number.__str__())
+        display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(
+            [[tiletools.Tiles.black.string] * 28] * 9))
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(info_box_message))
+        graphictools.print_graphic(display)
+        key_pressed = getch()
+        if(key_pressed in ['0','1','2','3','4','5','6','7', '8','9']):
+            answers = answer_dict.__getitem__("Numbers")
+            if (len(answers) == 3):
+                hint = get_hint(answers, random_number)
+                if(hint == True):
+                    time2 = time.time()
+                    timeDifference = time2 - maptools.Maps.start_time
+                    print("You win it took: ", timeDifference)
+                    save_to_scoreboard(tiletools.Hero.player_name, timeDifference)
+                    print_scoreboard()
+                    exit()
+                else:
+                    info_box_message = hint
+                    answer_dict.__setitem__("Numbers", [])
+            elif(not answers.__contains__(key_pressed)):
+                answers.append(key_pressed)
+                answer_dict.__setitem__("Numbers", answers)
+                info_box_message = [str('Your number: ' + str("".join(answers)))]
+            else:
+                info_box_message = ["Your number cannot",'have any duplications',str('Your number: ' + str("".join(answers)))]
+        elif key_pressed == 'q':
             exit()
 
 
@@ -325,7 +439,8 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        map_2_handler()
+        maptools.Maps.start_time = time.time()
+        map_3_handler()
     if (option == 5):
         exit()
         
