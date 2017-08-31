@@ -1,4 +1,7 @@
 import graphictools
+import tiletools
+
+
 class Map():
     def __init__(self, name, graphic_path, hero=None):
         self.name = name
@@ -24,6 +27,3 @@ class Maps():
              '2,18': 'gold,40,0.2',
              '29,17': 'dragon glass,4,1'}
 
-    def load_map_graphic(path):
-        return graphictools.import_graphic_from_file(path, 47, 21)
-    

@@ -144,7 +144,8 @@ def add_to_graphic(background, newgraphic, x0, y0):
             background[x + x0][y + y0] = newgraphic[x][y]
     return background
 
-def get_dialogue_graphic(text_list = ['testtest', 'testtes2']):
+
+def get_dialogue_graphic(text_list=['                             ', '                             ']):
     two_dimension_list = []
     for line in text_list:
         char_list = []
@@ -155,6 +156,7 @@ def get_dialogue_graphic(text_list = ['testtest', 'testtes2']):
 
     return two_dimension_list
 
+
 def add_dialogue_to_display(display, dialogues):
     y0 = 13
     for line in dialogues:
@@ -162,9 +164,7 @@ def add_dialogue_to_display(display, dialogues):
         for char in line:
             display[x0][y0] = char
             x0 += 1
-        y0 +=1
-
-
+        y0 += 1
 
 
 def add_single_tile_to_graphic(background, single_tile, x, y):
@@ -200,4 +200,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print_graphic(get_dialogue_graphic(['Pierwsza linijka.', 'Druga linijka.']))
     main()
