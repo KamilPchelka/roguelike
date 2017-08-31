@@ -9,7 +9,6 @@ class Map():
         self.hero = hero
     
 
-''' class Maps():
+class Maps():
     map1 = Map('map1', load_map_graphic('graphics/map1.gfx'))
     map2 = Map('map2', load_map_graphic('graphics/map2.gfx'))
- '''

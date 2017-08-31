@@ -52,6 +52,12 @@ def game_loop(interface, current_map, display, hero, gold_coins):
         for coin in gold_coins:
             if current_map.name == "map1" and coin.exist:
                 display[coin.x][coin.y] = coin
+        
+        rabbit1 = tiletools.Rabbit()
+
+        if rabbit1.alive:
+            display[30][17] = rabbit1
+            print(rabbit1.alive)
 
         graphictools.print_graphic(display)
 
@@ -112,6 +118,9 @@ def animate_attack(display, hero):
         graphictools.print_graphic(display)
         graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y-1)
         time.sleep(0.1)
+        if tile_copy.name == 'rabbit':
+            graphictools.add_single_tile_to_graphic(display, tiletools.Tiles.blood, hero.x-1, hero.y-1)
+            tile_copy.alive = False
 
         tile_copy = display[hero.x][hero.y - 1]
         string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'
