@@ -69,34 +69,47 @@ def map_1_handler():
     gold7 = tiletools.Gold(22, 5, 10, hero)
     gold8 = tiletools.Gold(6, 19, 20, hero)
     gold_coins = [gold1, gold2, gold3, gold4, gold5, gold6, gold7, gold8]
+    rabbit1 = tiletools.Rabbit(5, 5)
+    rabbit2 = tiletools.Rabbit(8, 8)
+    rabbit3 = tiletools.Rabbit(6, 5)
+    rabbit4 = tiletools.Rabbit(7, 5)
+    rabbit5 = tiletools.Rabbit(8, 5)
+    rabbit6 = tiletools.Rabbit(9, 5)
+    rabbit7 = tiletools.Rabbit(10, 5)
+    rabbit8 = tiletools.Rabbit(11, 5)
+    rabbit9 = tiletools.Rabbit(12, 5)
+    rabbit10 = tiletools.Rabbit(13, 5)
+    rabbits = [rabbit1, rabbit2, rabbit3, rabbit4, rabbit5, rabbit6, rabbit7, rabbit8, rabbit9, rabbit10]
     current_map = map1
     """ ------------------- """
     display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
 
 
-    game_loop_1(interface, current_map, display, hero, gold_coins)
+    game_loop_1(interface, current_map, display, hero, gold_coins, rabbits)
 
 
-def game_loop_1(interface, current_map, display, hero, gold_coins):
+def game_loop_1(interface, current_map, display, hero, gold_coins, rabbits):
 
     while True:
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
 
         if hero.gold <= 100:
-            message = ['Collect 100 gold to proceed.', 'Your gold: ' + str(hero.gold)]
+            message = ['Collect 100 gold and kill',
+                       '10 rabbits as a sacrifice',
+                       'to the Gods.',
+                       "",
+                       'Your gold: ' + str(hero.gold),
+                       'Rabbits killed: ' + str(hero.rabbits_killed)]
             graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
 
         for coin in gold_coins:
             if current_map.name == "map1" and coin.exist:
                 display[coin.x][coin.y] = coin
+        for rabbit in rabbits:
+            if current_map.name == "map1" and rabbit.alive:
+                display[rabbit.x][rabbit.y] = rabbit
         
-        rabbit1 = tiletools.Rabbit()
-
-        if rabbit1.alive:
-            display[30][17] = rabbit1
-            print(rabbit1.alive)
-
         graphictools.print_graphic(display)
 
         key_pressed = getch()
@@ -196,6 +209,7 @@ def animate_attack(display, hero):
         if tile_copy.name == 'rabbit':
             graphictools.add_single_tile_to_graphic(display, tiletools.Tiles.blood, hero.x-1, hero.y-1)
             tile_copy.alive = False
+            hero.rabbits_killed += 1
 
         tile_copy = display[hero.x][hero.y - 1]
         string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'

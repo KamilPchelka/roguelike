@@ -37,14 +37,15 @@ class Enemy(Tile):
 
 class Hero(Tile):
     inventory = {}
-    
-    def __init__(self, hp, x, y, direction, gold=0):
+
+    def __init__(self, hp, x, y, direction, gold=0, rabbits_killed=0):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
         self.x = x
         self.y = y
         self.direction = direction
         self.gold = gold
+        self.rabbits_killed = rabbits_killed
 
 
 class Gold(Tile):
@@ -63,6 +64,12 @@ class Gold(Tile):
 
 
 class Rabbit(Tile):
-    def __init__(self, alive=True):
+    def __init__(self, x, y, alive=True):
         super().__init__('rabbit', 'a', '38;2;255;255;255;', '48;2;40;170;50m', False)
+        self.x = x
+        self.y = y
         self.alive = alive
+
+    def collision_check(self, sword_x, sword_y):
+        if self.x == self.sword_x and self.y == self.sword_y:
+            self.alive = False
