@@ -414,7 +414,7 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        #story_screen_handler()
+        story_screen_handler()
         map_1_handler()
     if (option == 2):
         howto_screen_handler()
