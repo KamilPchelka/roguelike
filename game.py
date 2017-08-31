@@ -94,14 +94,20 @@ def game_loop_1(interface, current_map, display, hero, gold_coins, rabbits):
         display = graphictools.add_to_graphic(interface, current_map.map_graphic, 1, 1)
         display = graphictools.add_single_tile_to_graphic(display, hero, hero.x, hero.y)
 
-        if hero.gold <= 100:
+        if hero.gold < 100 or hero.rabbits_killed < 10:
             message = ['Collect 100 gold and kill',
                        '10 rabbits as a sacrifice',
-                       'to the Gods.',
+                       'to the Gods. They will help',
+                       'you get past the gate.',
                        "",
                        'Your gold: ' + str(hero.gold),
                        'Rabbits killed: ' + str(hero.rabbits_killed)]
-            graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
+        else:
+            message = ['You feel bad about yourself',
+                        'but Gods are pleased. They',
+                        'opened the gate for you.']
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic())
+        graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(message))
 
         for coin in gold_coins:
             if current_map.name == "map1" and coin.exist:

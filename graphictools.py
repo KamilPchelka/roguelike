@@ -145,7 +145,7 @@ def add_to_graphic(background, newgraphic, x0, y0):
     return background
 
 
-def get_dialogue_graphic(text_list=['                             ', '                             ']):
+def get_dialogue_graphic(text_list=['                             ' for x in range(9)]):
     two_dimension_list = []
     for line in text_list:
         char_list = []

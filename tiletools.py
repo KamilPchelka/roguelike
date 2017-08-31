@@ -59,7 +59,7 @@ class Gold(Tile):
         self.hero = hero
 
     def collision_check(self):
-        if self.x == self.hero.x and self.y == self.hero.y:
+        if self.x == self.hero.x and self.y == self.hero.y and self.exist:
             self.hero.gold += self.value
             self.exist = False
 
