@@ -1,0 +1,24 @@
+                                    Scoreboard
+
+
+                                  [1;31;49m______________[0m
+
+                             %1 %1name %1time
+                             %2 %2name %2time
+                             %3 %3name %3time
+                             %4 %4name %4time
+                             %5 %5name %5time
+                             %6 %6name %6time
+                             %7 %7name %7time
+                             %8 %8name %8time
+                             %9 %9name %9time
+                             %10 %10name %10time
+
+
+                                  [1;31;49m______________[0m
+
+                                [6;30;42mPress q to return[0m
+
+
+
+

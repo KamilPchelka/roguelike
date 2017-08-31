@@ -10,6 +10,7 @@ class Map():
 
 
 class Maps():
+    start_time = ''
     items = {'7,1': 'gold,20,0.1',
              '41,2': 'blue potion,4,0.8',
              '15,3' : 'red potion,5,1',

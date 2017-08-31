@@ -26,7 +26,8 @@ class Tiles:
     blood = Tile('blood', ' ', '38;2;255;0;0;', '48;2;255;0;0m', True)
     item = Tile('item', '?', '38;2;255;0;127;', '48;2;40;170;50m', True)
     gate = Tile('gate', '=', '38;2;200;200;200;', '48;2;120;120;120m', False)
-
+    
+    #ascii art tiles
     hudT = Tile('hudT', 'T', '38;2;255;255;255;', '48;2;0;0;0m', False)
     hudh = Tile('hudh', 'h', '38;2;255;255;255;', '48;2;0;0;0m', False)
     hudi = Tile('hudi', 'i', '38;2;255;255;255;', '48;2;0;0;0m', False)
@@ -50,6 +51,28 @@ class Tiles:
     hudApo = Tile('hudApo', '\'', '38;2;255;255;255;', '48;2;0;0;0m', False)
     hudGravis = Tile('hudGravis', '`', '38;2;255;255;255;', '48;2;0;0;0m', False)
     
+    #devil's tiles
+    devil_front = '38;2;255;255;255;'
+    devil_back = '48;2;180;1;0m'
+    devil1 = Tile('devil1', ',', devil_front, devil_back, False)
+    devil2 = Tile('devil2', '/', devil_front, devil_back, False)
+    devil3 = Tile('devil3', '\\', devil_front, devil_back, False)
+    devil4 = Tile('devil4', '(', devil_front, devil_back, False)
+    devil5 = Tile('devil5', ')', devil_front, devil_back, False)
+    devil6 = Tile('devil6', '_', devil_front, devil_back, False)
+    devil7 = Tile('devil7', ' ', devil_front, devil_back, False)
+    devil8 = Tile('devil8', '|', devil_front, devil_back, False)
+    devil9 = Tile('devil9', '<', devil_front, devil_back, False)
+    devil10 = Tile('devil10', '>', devil_front, devil_back, False)
+    devil11 = Tile('devil11', '0', devil_front, devil_back, False)
+    devil12 = Tile('devil12', '^', devil_front, devil_back, False)
+    devil13 = Tile('devil13', '`', devil_front, devil_back, False)
+    devil14 = Tile('devil14', 'V', devil_front, devil_back, False)
+    devil15 = Tile('devil15', '"', devil_front, devil_back, False)
+    devil16 = Tile('devil16', '{', devil_front, devil_back, False)
+    devil17 = Tile('devil17', '}', devil_front, devil_back, False)
+    devil18 = Tile('devil17', '=', devil_front, devil_back, False)
+
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
 
@@ -62,6 +85,7 @@ class Enemy(Tile):
 class Hero(Tile):
     inventory = {}
     player_name = ''
+    
     def __init__(self, hp, x, y, direction, gold=0, rabbits_killed=0):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
