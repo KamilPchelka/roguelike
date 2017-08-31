@@ -57,17 +57,17 @@ def map_2_handler():
 
 def map_1_handler():
     interface = graphictools.import_graphic_from_file('graphics/interface.gfx', 80, 23)
-    hero = tiletools.Hero(100, 10, 10, 'up')
+    hero = tiletools.Hero(100, 8, 12, 'up')
     """  map initialization """
     map1 = maptools.Map('map1', 'graphics/map2.gfx', hero)
     gold1 = tiletools.Gold(4, 4, 10, hero)
-    gold2 = tiletools.Gold(3, 3, 10, hero)
-    gold3 = tiletools.Gold(5, 3, 10, hero)
-    gold4 = tiletools.Gold(6, 3, 10, hero)
-    gold5 = tiletools.Gold(7, 3, 10, hero)
-    gold6 = tiletools.Gold(8, 3, 20, hero)
-    gold7 = tiletools.Gold(9, 3, 10, hero)
-    gold8 = tiletools.Gold(11, 3, 20, hero)
+    gold2 = tiletools.Gold(3, 11, 10, hero)
+    gold3 = tiletools.Gold(15, 13, 10, hero)
+    gold4 = tiletools.Gold(42, 19, 10, hero)
+    gold5 = tiletools.Gold(42, 7, 10, hero)
+    gold6 = tiletools.Gold(35, 15, 20, hero)
+    gold7 = tiletools.Gold(22, 5, 10, hero)
+    gold8 = tiletools.Gold(6, 19, 20, hero)
     gold_coins = [gold1, gold2, gold3, gold4, gold5, gold6, gold7, gold8]
     current_map = map1
     """ ------------------- """
@@ -325,7 +325,7 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        map_2_handler()
+        map_1_handler()
     if (option == 5):
         exit()
         
