@@ -198,98 +198,39 @@ def handle_user_input(display, current_map, key_pressed, hero):
         exit()
 
 
+def sword_frame(display, hero, x_offset, y_offset, sword_char):
+    tile_copy = display[hero.x + x_offset][hero.y + y_offset]
+    string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + sword_char + '\x1b[0m'
+    graphictools.add_single_tile_to_graphic(display, string, hero.x+x_offset, hero.y+y_offset)
+    graphictools.print_graphic(display)
+    graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+x_offset, hero.y+y_offset)
+    time.sleep(0.1)
+    if tile_copy.name == 'rabbit':
+        graphictools.add_single_tile_to_graphic(display, tiletools.Tiles.blood, hero.x+x_offset, hero.y+y_offset)
+        tile_copy.alive = False
+        hero.rabbits_killed += 1
+
+
 def animate_attack(display, hero):
     if hero.direction == 'up':
-        tile_copy = display[hero.x - 1][hero.y - 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y-1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y-1)
-        time.sleep(0.1)
-        if tile_copy.name == 'rabbit':
-            graphictools.add_single_tile_to_graphic(display, tiletools.Tiles.blood, hero.x-1, hero.y-1)
-            tile_copy.alive = False
-            hero.rabbits_killed += 1
-
-        tile_copy = display[hero.x][hero.y - 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x, hero.y-1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x, hero.y-1)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x + 1][hero.y - 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y-1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y-1)
-        time.sleep(0.1)
+        sword_frame(display, hero, -1, -1, '\\')
+        sword_frame(display, hero, 0, -1, '|')
+        sword_frame(display, hero, 1, -1, '/')
 
     if hero.direction == 'left':
-        tile_copy = display[hero.x - 1][hero.y + 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y+1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y+1)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x - 1][hero.y]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '-' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x - 1][hero.y - 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y-1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y-1)
-        time.sleep(0.1)
+        sword_frame(display, hero, -1, 1, '/')
+        sword_frame(display, hero, -1, 0, '-')
+        sword_frame(display, hero, -1, -1, '\\')
 
     if hero.direction == 'down':
-        tile_copy = display[hero.x + 1][hero.y + 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y+1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y+1)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x][hero.y + 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '|' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x, hero.y+1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x, hero.y+1)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x - 1][hero.y + 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x-1, hero.y+1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x-1, hero.y+1)
-        time.sleep(0.1)
+        sword_frame(display, hero, 1, 1, '\\')
+        sword_frame(display, hero, 0, 1, '|')
+        sword_frame(display, hero, -1, 1, '/')
 
     if hero.direction == 'right':
-        tile_copy = display[hero.x + 1][hero.y - 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '/' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y-1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y-1)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x + 1][hero.y]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '-' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y)
-        time.sleep(0.1)
-
-        tile_copy = display[hero.x + 1][hero.y + 1]
-        string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + '\\' + '\x1b[0m'
-        graphictools.add_single_tile_to_graphic(display, string, hero.x+1, hero.y+1)
-        graphictools.print_graphic(display)
-        graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+1, hero.y+1)
-        time.sleep(0.1)
+        sword_frame(display, hero, 1, -1, '/')
+        sword_frame(display, hero, 1, 0, '-')
+        sword_frame(display, hero, 1, 1, '\\')
 
 
 def trigger_menu():
