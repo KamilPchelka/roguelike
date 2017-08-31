@@ -336,6 +336,7 @@ def sword_frame(display, hero, x_offset, y_offset, sword_char):
     tile_copy = display[hero.x + x_offset][hero.y + y_offset]
     string = '\x1b[' + '38;2;255;255;255;' + tile_copy.background + sword_char + '\x1b[0m'
     graphictools.add_single_tile_to_graphic(display, string, hero.x+x_offset, hero.y+y_offset)
+    os.system('clear')
     graphictools.print_graphic(display)
     graphictools.add_single_tile_to_graphic(display, tile_copy, hero.x+x_offset, hero.y+y_offset)
     time.sleep(0.1)
