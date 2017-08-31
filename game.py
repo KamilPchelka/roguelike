@@ -64,13 +64,14 @@ def prepare_inventory_list(inventory):
             item_info_length = len(str(inventory.__getitem__(item)))
     line_list.append("Name         amount weight")
     item_info_length += 2
-    name_max_length -= 5
+    name_max_length -= 3
     format1 = str("{:<" + str(item_info_length) + "s}")
     format2 = str("{:<" + str(name_max_length) + "s}")
     for item in inventory:
         format3 = "{}"
         item_info = inventory.__getitem__(item)
-        line = str(format1 + format2 + format3).format(item, str(int(item_info[0])), str(item_info[1]))
+        print(format1, format2,format3)
+        line = str(format1 + format2 + format3).format(item, str(item_info[0]), str(item_info[1]))
         line_list.append(line)
     return line_list
 
@@ -245,6 +246,8 @@ def game_loop_2(interface, current_map, display, hero):
 
         key_pressed = getch()
         if (key_pressed == 'i' or key_pressed == 'i'):
+            graphictools.add_dialogue_to_display(interface, graphictools.get_dialogue_graphic(
+                [[tiletools.Tiles.black.string] * 28] * 9))
             info_box_message = prepare_inventory_list(hero.inventory)
 
         handle_user_input(display, current_map, key_pressed, hero)
@@ -411,7 +414,8 @@ def selected_item_handler(option):
     :return: None
     """
     if (option == 1):
-        story_screen_handler()
+        #story_screen_handler()
+        map_2_handler()
     if (option == 2):
         howto_screen_handler()
     if (option == 3):
