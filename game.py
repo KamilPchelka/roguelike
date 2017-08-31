@@ -70,15 +70,15 @@ def map_1_handler():
     gold8 = tiletools.Gold(6, 19, 20, hero)
     gold_coins = [gold1, gold2, gold3, gold4, gold5, gold6, gold7, gold8]
     rabbit1 = tiletools.Rabbit(5, 5)
-    rabbit2 = tiletools.Rabbit(8, 8)
+    rabbit2 = tiletools.Rabbit(10, 9)
     rabbit3 = tiletools.Rabbit(6, 5)
     rabbit4 = tiletools.Rabbit(7, 5)
-    rabbit5 = tiletools.Rabbit(8, 5)
-    rabbit6 = tiletools.Rabbit(9, 5)
-    rabbit7 = tiletools.Rabbit(10, 5)
-    rabbit8 = tiletools.Rabbit(11, 5)
-    rabbit9 = tiletools.Rabbit(12, 5)
-    rabbit10 = tiletools.Rabbit(13, 5)
+    rabbit5 = tiletools.Rabbit(14, 3)
+    rabbit6 = tiletools.Rabbit(33, 7)
+    rabbit7 = tiletools.Rabbit(37, 15)
+    rabbit8 = tiletools.Rabbit(26, 18)
+    rabbit9 = tiletools.Rabbit(12, 18)
+    rabbit10 = tiletools.Rabbit(44, 12)
     rabbits = [rabbit1, rabbit2, rabbit3, rabbit4, rabbit5, rabbit6, rabbit7, rabbit8, rabbit9, rabbit10]
     current_map = map1
     """ ------------------- """
