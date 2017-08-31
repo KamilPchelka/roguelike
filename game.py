@@ -2,7 +2,7 @@ import tiletools
 import graphictools
 import maptools
 import time
-
+import os
 
 def getch():
     """Function get the type of character pressed
@@ -29,7 +29,7 @@ def prepare_inventory_list(inventory):
         if (len(str(inventory.__getitem__(item))) > item_info_length):
             item_info_length = len(str(inventory.__getitem__(item)))
     line_list.append("Name         amount weight")
-    item_info_length += 2;
+    item_info_length += 2
     name_max_length -= 5
     format1 = str("{:<" + str(item_info_length) + "s}")
     format2 = str("{:<" + str(name_max_length) + "s}")
@@ -276,7 +276,7 @@ def handle_main_menu_user_input(input, option):
             return option
     elif (input == "q"):
         exit()
-    elif (input == "C" and option in [1, 5]):
+    elif (input == "C" and option in [1, 2, 3, 4, 5]):
         selected_item_handler(option)
     return None
 
@@ -289,9 +289,31 @@ def selected_item_handler(option):
     """
     if (option == 1):
         map_1_handler()
+    if (option == 2):
+        howto_screen_handler()
+    if (option == 3):
+        pass
+    if (option == 4):
+        about_screen_handler()
     if (option == 5):
         exit()
-        
+
+
+def howto_screen_handler():
+    os.system('clear')
+    with open('graphics/howto.txt', 'r') as f:
+        for line in f:
+            print(line, end='')
+        input = getch()
+
+
+def about_screen_handler():
+    os.system('clear')
+    with open('graphics/about.txt', 'r') as f:
+        for line in f:
+            print(line, end='')
+        input = getch()
+
 
 if __name__ == '__main__':
         trigger_menu()

@@ -38,7 +38,7 @@ class Enemy(Tile):
 
 class Hero(Tile):
     inventory = {}
-
+    player_name = ''
     def __init__(self, hp, x, y, direction, gold=0, rabbits_killed=0):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
