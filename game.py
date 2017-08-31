@@ -124,6 +124,7 @@ def game_loop_1(interface, current_map, display, hero, gold_coins, rabbits):
             if current_map.name == "map1" and rabbit.alive:
                 display[rabbit.x][rabbit.y] = rabbit
         
+        os.system('clear')
         graphictools.print_graphic(display)
 
         key_pressed = getch()

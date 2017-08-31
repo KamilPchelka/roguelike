@@ -27,6 +27,29 @@ class Tiles:
     item = Tile('item', '?', '38;2;255;0;127;', '48;2;40;170;50m', True)
     gate = Tile('gate', '=', '38;2;200;200;200;', '48;2;120;120;120m', False)
 
+    hudT = Tile('hudT', 'T', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudh = Tile('hudh', 'h', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudi = Tile('hudi', 'i', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    huds = Tile('huds', 's', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudy = Tile('hudy', 'y', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudo = Tile('hudo', 'o', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudu = Tile('hudu', 'u', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudn = Tile('hudn', 'n', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudm = Tile('hudm', 'm', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    huddot = Tile('huddot', '.', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudUnderscore = Tile('hudUnderscore', '_', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudBackslash = Tile('hudBackslash', '\\', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudSlash = Tile('hudSlash', '/', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudEquals = Tile('hudEquals', '=', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudMinus = Tile('hudMinus', '-', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudBrack1 = Tile('hudBrack1', '[', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudBrack2 = Tile('hudBrack2', ']', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudLine = Tile('hudLine', '|', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudBrack3 = Tile('hudBrack3', '(', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudBrack4 = Tile('hudBrack4', ')', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudApo = Tile('hudApo', '\'', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    hudGravis = Tile('hudGravis', '`', '38;2;255;255;255;', '48;2;0;0;0m', False)
+    
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
 
