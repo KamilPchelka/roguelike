@@ -24,6 +24,7 @@ class Tiles:
     hudStar = Tile('hudStar', '*', '38;2;255;255;255;', '48;2;0;0;0m', False)
     rabbit = Tile('rabbit', 'a', '38;2;255;255;255;', '48;2;40;170;50m', False)
     blood = Tile('blood', ' ', '38;2;255;0;0;', '48;2;255;0;0m', True)
+    item = Tile('item', '?', '38;2;255;0;127;', '48;2;40;170;50m', True)
 
     tile_names = [tile for tile in vars().keys() if not tile.startswith('__')]
 
@@ -35,6 +36,8 @@ class Enemy(Tile):
 
 
 class Hero(Tile):
+    inventory = {}
+    
     def __init__(self, hp, x, y, direction, gold=0):
         super().__init__('player', '@', '38;2;255;255;255;', '48;2;40;170;50m', True)
         self.hp = hp
